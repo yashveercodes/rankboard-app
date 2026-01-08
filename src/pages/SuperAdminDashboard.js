@@ -4,7 +4,8 @@ import {
   addDoc,
   getDocs,
   updateDoc,
-  doc
+  doc,
+  setDoc
 } from "firebase/firestore";
 import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
@@ -45,8 +46,7 @@ function SuperAdminDashboard() {
         adminPassword
       );
 
-      await addDoc(collection(db, "users"), {
-        uid: cred.user.uid,
+      await setDoc(doc(db, "users", cred.user.uid), {
         role: "admin",
         instituteId: instituteRef.id,
         email: adminEmail,
